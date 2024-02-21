@@ -30,7 +30,7 @@ add_filter( 'the_content', function( $content ) {
 
 
     if ( $children ) {
-      $content .= '<span class="screen-reader-text">Sub-páginas:</span>';
+      $html = '<span class="screen-reader-text">Sub-p&aacute;ginas:</span>';
 
       $botoes = '<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"left","orientation":"horizontal"}} --><div class="wp-block-buttons">';
 
@@ -44,9 +44,11 @@ add_filter( 'the_content', function( $content ) {
 
       if ( $parsed_blocks ) {
         foreach ( $parsed_blocks as $block ) {
-          $content .= render_block( $block );
+          $html .= render_block( $block );
         }
       }
+
+      $content = $html . $content;
     }
   }
 
