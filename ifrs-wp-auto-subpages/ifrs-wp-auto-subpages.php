@@ -25,7 +25,7 @@ add_filter( 'the_content', function( $content ) {
 
     $children = get_pages( array(
       'parent'      => $post->ID,
-      'sort_column' => 'menu_order',
+      'sort_column' => 'menu_order,post_title',
     ) );
 
 
