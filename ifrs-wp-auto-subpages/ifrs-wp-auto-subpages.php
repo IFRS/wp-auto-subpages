@@ -23,7 +23,6 @@ add_filter( 'the_content', function( $content ) {
   if (is_page()) {
     global $post;
 
-    $html = '';
     $children = get_pages( array(
       'parent'      => $post->ID,
       'sort_column' => 'menu_order',
@@ -31,21 +30,24 @@ add_filter( 'the_content', function( $content ) {
 
 
     if ( $children ) {
-      $html = '<span class="screen-reader-text">Sub-páginas:</span>';
-      $html .= '<div class="wp-block-buttons is-layout-flex is-content-justification-left">';
+      $content .= '<span class="screen-reader-text">Sub-páginas:</span>';
+
+      $botoes = '<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"left","orientation":"horizontal"}} --><div class="wp-block-buttons">';
 
       foreach ($children as $child) {
-        $html .= '<div class="wp-block-button">';
-        $html .= '<a class="wp-block-button__link wp-element-button" href="' . get_permalink($child) . '">';
-        $html .= $child->post_title;
-        $html .= '</a>';
-        $html .= '</div>';
+        $botoes .= '<!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="' . get_permalink($child) . '">' . $child->post_title . '</a></div><!-- /wp:button -->';
       }
 
-      $html .= '</div>';
-    }
+      $botoes .= '</div><!-- /wp:buttons -->';
 
-    $content = $html . $content;
+      $parsed_blocks = parse_blocks( $botoes );
+
+      if ( $parsed_blocks ) {
+        foreach ( $parsed_blocks as $block ) {
+          $content .= render_block( $block );
+        }
+      }
+    }
   }
 
   return $content;
