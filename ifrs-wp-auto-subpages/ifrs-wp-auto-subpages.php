@@ -20,8 +20,8 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 add_filter( 'the_content', function( $content ) {
-  if (is_page()) {
-    global $post;
+  if (is_page() && is_main_query() && in_the_loop()) {
+    $post = get_post();
 
     $children = get_pages( array(
       'parent'      => $post->ID,
