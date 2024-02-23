@@ -15,8 +15,51 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if ( ! defined( 'WPINC' ) || !defined('ABSPATH') ) {
+	exit;
+}
+
+require_once 'includes/metaboxes.php';
+
+function ifrs_auto_subpages_monta_menu($tipo, $itens) {
+  $markup = '';
+
+  switch ($tipo) {
+      case 'hide':
+      break;
+      case 'ul':
+        $markup .= '<!-- wp:list --><ul>';
+
+        foreach ($itens as $item) {
+          $url = get_permalink($item);
+          $markup .= '<!-- wp:list-item --><li><a data-type="link" data-id="' . $url . '" href="' . $url . '">' . $item->post_title . '</a></li><!-- /wp:list-item -->';
+        }
+
+        $markup .= '</ul><!-- /wp:list -->';
+      break;
+      case 'ol':
+        $markup .= '<!-- wp:list {"ordered":true} --><ol>';
+
+        foreach ($itens as $item) {
+          $url = get_permalink($item);
+          $markup .= '<!-- wp:list-item --><li><a data-type="link" data-id="' . $url . '" href="' . $url . '">' . $item->post_title . '</a></li><!-- /wp:list-item -->';
+        }
+
+        $markup .= '</ol><!-- /wp:list -->';
+      break;
+      default:
+        $markup .= '<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"left","orientation":"horizontal"}} --><div class="wp-block-buttons">';
+
+        foreach ($itens as $item) {
+          $markup .= '<!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="' . get_permalink($item) . '">' . $item->post_title . '</a></div><!-- /wp:button -->';
+        }
+
+        $markup .= '</div><!-- /wp:buttons -->';
+
+      break;
+    }
+
+    return $markup;
 }
 
 add_filter( 'the_content', function( $content ) {
@@ -28,19 +71,14 @@ add_filter( 'the_content', function( $content ) {
       'sort_column' => 'menu_order,post_title',
     ) );
 
-
     if ( $children ) {
-      $html = '<span class="screen-reader-text">Sub-p&aacute;ginas:</span>';
+      $tipo_menu = get_post_meta( $post->ID, 'ifrs_subpages_menu_option', true );
 
-      $botoes = '<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"left","orientation":"horizontal"}} --><div class="wp-block-buttons">';
+      $html = $tipo_menu !== 'hide' ? '<span class="screen-reader-text">Sub-p&aacute;ginas:</span>' : '';
 
-      foreach ($children as $child) {
-        $botoes .= '<!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="' . get_permalink($child) . '">' . $child->post_title . '</a></div><!-- /wp:button -->';
-      }
+      $blocos = ifrs_auto_subpages_monta_menu($tipo_menu, $children);
 
-      $botoes .= '</div><!-- /wp:buttons -->';
-
-      $parsed_blocks = parse_blocks( $botoes );
+      $parsed_blocks = parse_blocks( $blocos );
 
       if ( $parsed_blocks ) {
         foreach ( $parsed_blocks as $block ) {
