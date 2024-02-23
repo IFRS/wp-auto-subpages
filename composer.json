@@ -1,0 +1,16 @@
+{
+    "name": "ifrs/wp-auto-subpages",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Ricardo Moro",
+            "email": "ricardo.moro@ifrs.edu.br"
+        }
+    ],
+    "require": {
+        "cmb2/cmb2": "^2.10"
+    },
+    "autoload": {
+        "files": ["vendor/cmb2/cmb2/init.php"]
+    }
+}
