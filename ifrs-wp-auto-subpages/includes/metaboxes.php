@@ -15,14 +15,7 @@ function ifrs_show_if_has_children( $field ) {
 	return true;
 }
 
-add_action( 'cmb2_admin_init', 'yourprefix_register_demo_metabox' );
-/**
- * Hook in and add a demo metabox. Can only happen on the 'cmb2_admin_init' or 'cmb2_init' hook.
- */
-function yourprefix_register_demo_metabox() {
-	/**
-	 * Sample metabox to demonstrate each field type included
-	 */
+add_action( 'cmb2_admin_init', function() {
 	$subpages_menu_options = new_cmb2_box( array(
 		'id'            => 'ifrs_subpages_menu_metabox',
 		'title'         => __( 'Menu de Sub-páginas', 'ifrs' ),
@@ -45,4 +38,4 @@ function yourprefix_register_demo_metabox() {
       'hide' => __( 'Esconder Menu', 'ifrs' ),
     ),
 	) );
-}
+} );
