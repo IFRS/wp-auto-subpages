@@ -57,11 +57,11 @@ function ifrs_auto_subpages_monta_blocos($tipo, $itens) {
       $markup .= '<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"left","orientation":"horizontal"}} --><div class="wp-block-buttons">';
 
       foreach ($itens as $item) {
-        $link = get_permalink($item);
+        $url = get_permalink($item);
         $markup .= <<<HTML
           <!-- wp:button -->
           <div class="wp-block-button">
-            <a class="wp-block-button__link wp-element-button" href="{$link}">{$item->post_title}</a>
+            <a class="wp-block-button__link wp-element-button" href="{$url}">{$item->post_title}</a>
           </div>
           <!-- /wp:button -->
         HTML;
