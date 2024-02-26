@@ -18,7 +18,7 @@ function ifrs_show_if_has_children( $field ) {
 add_action( 'cmb2_admin_init', function() {
 	$subpages_menu_options = new_cmb2_box( array(
 		'id'            => 'ifrs_subpages_menu_metabox',
-		'title'         => __( 'Menu de Sub-páginas', 'ifrs' ),
+		'title'         => __( 'Subpages Menu', 'ifrs-wp-auto-subpages' ),
 		'object_types'  => array( 'page' ),
 		'show_on_cb' => 'ifrs_show_if_has_children',
 		// 'context'    => 'side',
@@ -27,15 +27,15 @@ add_action( 'cmb2_admin_init', function() {
 	) );
 
 	$subpages_menu_options->add_field( array(
-		'name'       => __( 'Tipo de Menu', 'ifrs' ),
-		'desc'       => __( 'Escolha o tipo de menu para exibir as sub-páginas dessa página', 'ifrs' ),
+		'name'       => __( 'Menu Type', 'ifrs-wp-auto-subpages' ),
+		'desc'       => __( 'Choose the menu type to show the subpages of this page.', 'ifrs-wp-auto-subpages' ),
 		'id'         => 'ifrs_subpages_menu_option',
 		'type'       => 'select',
-    'show_option_none' => __( 'Botões (Padrão)', 'ifrs' ),
+    'show_option_none' => __( 'Buttons (Default)', 'ifrs-wp-auto-subpages' ),
     'options'    => array(
-      'ul' => __( 'Lista Não Ordenada', 'ifrs' ),
-      'ol' => __( 'Lista Ordenada', 'ifrs' ),
-      'hide' => __( 'Esconder Menu', 'ifrs' ),
+      'ul' => __( 'Unordered List', 'ifrs-wp-auto-subpages' ),
+      'ol' => __( 'Ordered List', 'ifrs-wp-auto-subpages' ),
+      'hide' => __( 'Hide Menu', 'ifrs-wp-auto-subpages' ),
     ),
 	) );
 } );

@@ -1,0 +1,71 @@
+# Copyright (C) 2024 Ricardo Moro
+# This file is distributed under the GPLv3.
+msgid ""
+msgstr ""
+"Project-Id-Version: IFRS WP Auto Subpages 0.0.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ifrs-wp-auto-"
+"subpages\n"
+"POT-Creation-Date: 2024-02-26T15:07:30+00:00\n"
+"PO-Revision-Date: 2024-02-26 13:42-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4\n"
+"X-Domain: ifrs-wp-auto-subpages\n"
+
+#. Plugin Name of the plugin
+msgid "IFRS WP Auto Subpages"
+msgstr "IFRS WP Subpáginas Automáticas"
+
+#. Plugin URI of the plugin
+msgid "https://github.com/IFRS/wp-auto-subpages"
+msgstr ""
+
+#. Description of the plugin
+msgid "Automatically add subpages to every page that has children."
+msgstr ""
+"Adiciona automaticamente subpáginas em todas as páginas que possuem "
+"páginas filhas."
+
+#. Author of the plugin
+msgid "Ricardo Moro"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://ifrs.edu.br"
+msgstr ""
+
+#: ifrs-wp-auto-subpages.php:96
+msgid "Subpages"
+msgstr "Subpáginas"
+
+#: includes/metaboxes.php:21
+msgid "Subpages Menu"
+msgstr "Menu de Subpáginas"
+
+#: includes/metaboxes.php:30
+msgid "Menu Type"
+msgstr "Tipo de Menu"
+
+#: includes/metaboxes.php:31
+msgid "Choose the menu type to show the subpages of this page."
+msgstr "Escolha o tipo de menu para exibir as sub-páginas dessa página."
+
+#: includes/metaboxes.php:34
+msgid "Buttons (Default)"
+msgstr "Botões (Padrão)"
+
+#: includes/metaboxes.php:36
+msgid "Unordered List"
+msgstr "Lista Não-Ordenada"
+
+#: includes/metaboxes.php:37
+msgid "Ordered List"
+msgstr "Lista Ordenada"
+
+#: includes/metaboxes.php:38
+msgid "Hide Menu"
+msgstr "Esconder Menu"

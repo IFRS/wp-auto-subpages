@@ -11,7 +11,7 @@
  * License:           GPLv3
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       ifrs-wp-auto-subpages
- * Domain Path:       /lang
+ * Domain Path:       /languages
  */
 
 // If this file is called directly, abort.
@@ -19,16 +19,21 @@ if ( ! defined( 'WPINC' ) || !defined('ABSPATH') ) {
 	exit;
 }
 
+// Load i18n
+add_action( 'init', function() {
+	load_plugin_textdomain( 'ifrs-wp-auto-subpages', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+} );
+
 require_once 'includes/metaboxes.php';
 
-function ifrs_auto_subpages_monta_blocos($tipo, $itens) {
+function ifrs_auto_subpages_mount_blocks($type, $items) {
   $markup = '';
 
-  switch ($tipo) {
+  switch ($type) {
     case 'ul':
       $markup .= '<!-- wp:list --><ul>';
 
-      foreach ($itens as $item) {
+      foreach ($items as $item) {
         $url = get_permalink($item);
         $markup .= <<<HTML
           <!-- wp:list-item -->
@@ -42,7 +47,7 @@ function ifrs_auto_subpages_monta_blocos($tipo, $itens) {
     case 'ol':
       $markup .= '<!-- wp:list {"ordered":true} --><ol>';
 
-      foreach ($itens as $item) {
+      foreach ($items as $item) {
         $url = get_permalink($item);
         $markup .= <<<HTML
           <!-- wp:list-item -->
@@ -56,7 +61,7 @@ function ifrs_auto_subpages_monta_blocos($tipo, $itens) {
     default:
       $markup .= '<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"left","orientation":"horizontal"}} --><div class="wp-block-buttons">';
 
-      foreach ($itens as $item) {
+      foreach ($items as $item) {
         $url = get_permalink($item);
         $markup .= <<<HTML
           <!-- wp:button -->
@@ -85,15 +90,15 @@ add_filter( 'the_content', function( $content ) {
     ) );
 
     if ( $children ) {
-      $tipo_menu = get_post_meta( $post->ID, 'ifrs_subpages_menu_option', true );
+      $menu_type = get_post_meta( $post->ID, 'ifrs_subpages_menu_option', true );
 
-      if ($tipo_menu === 'hide') return $content;
+      if ($menu_type === 'hide') return $content;
 
-      $html = '<span class="screen-reader-text">Sub-p&aacute;ginas:</span>';
+      $html = '<span class="screen-reader-text">' . __('Subpages', 'ifrs-wp-auto-subpages') . ':</span>';
 
-      $blocos = ifrs_auto_subpages_monta_blocos($tipo_menu, $children);
+      $blocks = ifrs_auto_subpages_mount_blocks($menu_type, $children);
 
-      $parsed_blocks = parse_blocks( $blocos );
+      $parsed_blocks = parse_blocks( $blocks );
 
       if ( $parsed_blocks ) {
         foreach ( $parsed_blocks as $block ) {
