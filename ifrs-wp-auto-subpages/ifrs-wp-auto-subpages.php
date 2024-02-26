@@ -21,7 +21,7 @@ if ( ! defined( 'WPINC' ) || !defined('ABSPATH') ) {
 
 require_once 'includes/metaboxes.php';
 
-function ifrs_auto_subpages_monta_menu($tipo, $itens) {
+function ifrs_auto_subpages_monta_blocos($tipo, $itens) {
   $markup = '';
 
   switch ($tipo) {
@@ -32,7 +32,11 @@ function ifrs_auto_subpages_monta_menu($tipo, $itens) {
 
       foreach ($itens as $item) {
         $url = get_permalink($item);
-        $markup .= '<!-- wp:list-item --><li><a data-type="link" data-id="' . $url . '" href="' . $url . '">' . $item->post_title . '</a></li><!-- /wp:list-item -->';
+        $markup .= <<<HTML
+          <!-- wp:list-item -->
+          <li><a data-type="link" data-id="{$url}" href="{$url}">{$item->post_title}</a></li>
+          <!-- /wp:list-item -->
+        HTML;
       }
 
       $markup .= '</ul><!-- /wp:list -->';
@@ -42,7 +46,11 @@ function ifrs_auto_subpages_monta_menu($tipo, $itens) {
 
       foreach ($itens as $item) {
         $url = get_permalink($item);
-        $markup .= '<!-- wp:list-item --><li><a data-type="link" data-id="' . $url . '" href="' . $url . '">' . $item->post_title . '</a></li><!-- /wp:list-item -->';
+        $markup .= <<<HTML
+          <!-- wp:list-item -->
+          <li><a data-type="link" data-id="{$url}" href="{$url}">{$item->post_title}</a></li>
+          <!-- /wp:list-item -->
+        HTML;
       }
 
       $markup .= '</ol><!-- /wp:list -->';
@@ -51,7 +59,14 @@ function ifrs_auto_subpages_monta_menu($tipo, $itens) {
       $markup .= '<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"left","orientation":"horizontal"}} --><div class="wp-block-buttons">';
 
       foreach ($itens as $item) {
-        $markup .= '<!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="' . get_permalink($item) . '">' . $item->post_title . '</a></div><!-- /wp:button -->';
+        $link = get_permalink($item);
+        $markup .= <<<HTML
+          <!-- wp:button -->
+          <div class="wp-block-button">
+            <a class="wp-block-button__link wp-element-button" href="{$link}">{$item->post_title}</a>
+          </div>
+          <!-- /wp:button -->
+        HTML;
       }
 
       $markup .= '</div><!-- /wp:buttons -->';
@@ -76,7 +91,7 @@ add_filter( 'the_content', function( $content ) {
 
       $html = $tipo_menu !== 'hide' ? '<span class="screen-reader-text">Sub-p&aacute;ginas:</span>' : '';
 
-      $blocos = ifrs_auto_subpages_monta_menu($tipo_menu, $children);
+      $blocos = ifrs_auto_subpages_monta_blocos($tipo_menu, $children);
 
       $parsed_blocks = parse_blocks( $blocos );
 
