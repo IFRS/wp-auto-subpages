@@ -25,41 +25,41 @@ function ifrs_auto_subpages_monta_menu($tipo, $itens) {
   $markup = '';
 
   switch ($tipo) {
-      case 'hide':
-      break;
-      case 'ul':
-        $markup .= '<!-- wp:list --><ul>';
+    case 'hide':
+    break;
+    case 'ul':
+      $markup .= '<!-- wp:list --><ul>';
 
-        foreach ($itens as $item) {
-          $url = get_permalink($item);
-          $markup .= '<!-- wp:list-item --><li><a data-type="link" data-id="' . $url . '" href="' . $url . '">' . $item->post_title . '</a></li><!-- /wp:list-item -->';
-        }
+      foreach ($itens as $item) {
+        $url = get_permalink($item);
+        $markup .= '<!-- wp:list-item --><li><a data-type="link" data-id="' . $url . '" href="' . $url . '">' . $item->post_title . '</a></li><!-- /wp:list-item -->';
+      }
 
-        $markup .= '</ul><!-- /wp:list -->';
-      break;
-      case 'ol':
-        $markup .= '<!-- wp:list {"ordered":true} --><ol>';
+      $markup .= '</ul><!-- /wp:list -->';
+    break;
+    case 'ol':
+      $markup .= '<!-- wp:list {"ordered":true} --><ol>';
 
-        foreach ($itens as $item) {
-          $url = get_permalink($item);
-          $markup .= '<!-- wp:list-item --><li><a data-type="link" data-id="' . $url . '" href="' . $url . '">' . $item->post_title . '</a></li><!-- /wp:list-item -->';
-        }
+      foreach ($itens as $item) {
+        $url = get_permalink($item);
+        $markup .= '<!-- wp:list-item --><li><a data-type="link" data-id="' . $url . '" href="' . $url . '">' . $item->post_title . '</a></li><!-- /wp:list-item -->';
+      }
 
-        $markup .= '</ol><!-- /wp:list -->';
-      break;
-      default:
-        $markup .= '<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"left","orientation":"horizontal"}} --><div class="wp-block-buttons">';
+      $markup .= '</ol><!-- /wp:list -->';
+    break;
+    default:
+      $markup .= '<!-- wp:buttons {"layout":{"type":"flex","justifyContent":"left","orientation":"horizontal"}} --><div class="wp-block-buttons">';
 
-        foreach ($itens as $item) {
-          $markup .= '<!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="' . get_permalink($item) . '">' . $item->post_title . '</a></div><!-- /wp:button -->';
-        }
+      foreach ($itens as $item) {
+        $markup .= '<!-- wp:button --><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="' . get_permalink($item) . '">' . $item->post_title . '</a></div><!-- /wp:button -->';
+      }
 
-        $markup .= '</div><!-- /wp:buttons -->';
+      $markup .= '</div><!-- /wp:buttons -->';
 
-      break;
-    }
+    break;
+  }
 
-    return $markup;
+  return $markup;
 }
 
 add_filter( 'the_content', function( $content ) {
