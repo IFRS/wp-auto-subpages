@@ -25,8 +25,6 @@ function ifrs_auto_subpages_monta_blocos($tipo, $itens) {
   $markup = '';
 
   switch ($tipo) {
-    case 'hide':
-    break;
     case 'ul':
       $markup .= '<!-- wp:list --><ul>';
 
@@ -89,7 +87,9 @@ add_filter( 'the_content', function( $content ) {
     if ( $children ) {
       $tipo_menu = get_post_meta( $post->ID, 'ifrs_subpages_menu_option', true );
 
-      $html = $tipo_menu !== 'hide' ? '<span class="screen-reader-text">Sub-p&aacute;ginas:</span>' : '';
+      if ($tipo_menu === 'hide') return $content;
+
+      $html = '<span class="screen-reader-text">Sub-p&aacute;ginas:</span>';
 
       $blocos = ifrs_auto_subpages_monta_blocos($tipo_menu, $children);
 
